@@ -1,0 +1,8 @@
+playwright
+python-dotenv
+openai
+pydantic
+ipython
+tabulate
+pandas
+streamlit
