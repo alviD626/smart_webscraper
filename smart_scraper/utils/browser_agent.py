@@ -10,7 +10,7 @@ class WebScraperAgent:
 
     async def init_browser(self):
         self.playwright = await async_playwright().start()
-        self.browser = await self.playwright.chromium.launch(headless=True)
+        self.browser = await self.playwright.chromium.launch(headless=False)
         self.page = await self.browser.new_page()
 
     async def scrape_content(self, url):
@@ -19,11 +19,6 @@ class WebScraperAgent:
         await self.page.goto(url, wait_until="domcontentloaded", timeout=60000)
         await self.page.wait_for_timeout(3000)
         return await self.page.content()
-
-    async def screenshot_buffer(self):
-        if not self.page or self.page.is_closed():
-            return None
-        return await self.page.screenshot(type="png", full_page=False)
 
     async def close(self):
         if self.browser:
